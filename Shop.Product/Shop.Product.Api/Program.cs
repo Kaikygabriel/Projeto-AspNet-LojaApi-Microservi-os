@@ -1,28 +1,22 @@
 using Microsoft.EntityFrameworkCore;
-using Shop.Api.DependencyInjection;
+using Shop.Product.Api.Extensions.Category;
+using Shop.Product.Api.Extensions.DependencyInjection;
 using Shop.Product.Infra.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
-builder.Services.AddDependencyInjection();
+var connectionSql = builder.Configuration.GetConnectionString("DefaultConnection");
 
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(
-    x=> x.UseSqlServer(connection));
+builder.Services.AddDependencyInjection();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<AppDbContext>(x =>
+    x.UseSqlServer(connectionSql));
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
+app.MapCategory();
 
 app.Run();

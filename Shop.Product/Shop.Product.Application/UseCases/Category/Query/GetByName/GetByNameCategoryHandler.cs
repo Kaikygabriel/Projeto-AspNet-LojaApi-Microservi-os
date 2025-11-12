@@ -1,4 +1,5 @@
 using MediatR;
+using Shop.Application.DTOs.Category;
 using Shop.Domain.Interfaces;
 
 namespace Shop.Application.UseCases.Category.Query.GetByName;

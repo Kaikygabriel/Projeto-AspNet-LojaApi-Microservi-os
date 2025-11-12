@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Shop.Product.Infra.Data.Mapping;
 
-public class ProductMapping : IEntityTypeConfiguration<Domain.Entities.Product>
+public class ProductMappingDataBase : IEntityTypeConfiguration<Domain.Entities.Product>
 {
     public void Configure(EntityTypeBuilder<Domain.Entities.Product> builder)
     {        

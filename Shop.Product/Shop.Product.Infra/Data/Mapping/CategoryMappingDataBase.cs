@@ -4,7 +4,7 @@ using Shop.Domain.Entities;
 
 namespace Shop.Product.Infra.Data.Mapping;
 
-public class CategoryMapping : IEntityTypeConfiguration<Category>
+public class CategoryMappingDataBase : IEntityTypeConfiguration<Category>
 {
     public void Configure(EntityTypeBuilder<Category> builder)
     {

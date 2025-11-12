@@ -6,7 +6,7 @@ using Shop.Product.Infra.Repositorys;
 using Shop.Product.Infra.Repositorys.Category;
 using Shop.Product.Infra.Repositorys.Product;
 
-namespace Shop.Api.DependencyInjection;
+namespace Shop.Product.Api.Extensions.DependencyInjection;
 
 public static class Ioc
 {
@@ -15,8 +15,11 @@ public static class Ioc
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IRepositoryCategory, RepositoryCategory>();
         services.AddScoped<IRepositoryProduct,RepositoryProduct>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
         services.AddMediatR(x =>
             x.RegisterServicesFromAssembly(typeof(CreateCategoryCommand).Assembly));
+        
         return services;
     }
 }
