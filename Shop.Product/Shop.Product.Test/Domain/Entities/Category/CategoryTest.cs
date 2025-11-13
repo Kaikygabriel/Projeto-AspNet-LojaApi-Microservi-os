@@ -21,9 +21,9 @@ public class CategoryTest
             new Shop.Domain.Entities.Category(NameNull));
     }
     [Fact]
-    public void CreateCategory_NameInvalid_Return_NotNull()
+    public void CreateCategory_NameValid_Return_NotNull()
     {
-        var category = new Shop.Domain.Entities.Category(NameInvalid);
+        var category = new Shop.Domain.Entities.Category(NameValid);
         Assert.NotNull(category);
     }
 }
