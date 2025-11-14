@@ -5,7 +5,7 @@ namespace Shop.Product.Test.Applicaton.UseCases.Product.Command.Create;
 
 public class CreateProductTest
 {
-    private readonly CreateProductHandler Handler = new(new FakeUniOfWork());
+    private readonly CreateProductHandler Handler = new(new FakeUnitOfWork());
     
     private readonly Shop.Domain.Entities.Product? ProductNull = null;
     private readonly Shop.Domain.Entities.Product ProductValid = new

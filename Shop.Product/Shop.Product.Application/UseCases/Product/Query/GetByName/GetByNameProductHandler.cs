@@ -12,6 +12,7 @@ public class GetByNameProductHandler :HandlerBase,IRequestHandler<GetByNameProdu
 
     public async Task<ProductDto?> Handle(GetByNameProductQuery request, CancellationToken cancellationToken)
     {
-        return (ProductDto)await UnitOfWork.RepositoryProduct.GetByPredicate(x => x.Name == request.Name);
+        var product = await UnitOfWork.RepositoryProduct.GetByPredicate(x => x.Name == request.Name);
+        return (ProductDto)product;
     }
 }

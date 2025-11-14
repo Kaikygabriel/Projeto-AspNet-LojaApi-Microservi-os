@@ -4,7 +4,7 @@ using Shop.Domain.Interfaces.Products;
 
 namespace Shop.Product.Test.Mocks;
 
-public class FakeUniOfWork : IUnitOfWork
+public class FakeUnitOfWork : IUnitOfWork
 {
     public IRepositoryCategory RepositoryCategory { get; } = new FakeRepositoryCategory();
     public IRepositoryProduct RepositoryProduct { get; } = new FakeRepositoryProduct();

@@ -6,7 +6,7 @@ namespace Shop.Product.Test.Applicaton.UseCases.Category.Command.Delete;
 
 public class DeleteCategoryTeste 
 {
-    private readonly DeleteCategoryHandler CategoryHandler = new(new FakeUniOfWork());
+    private readonly DeleteCategoryHandler CategoryHandler = new(new FakeUnitOfWork());
     
     private readonly Shop.Domain.Entities.Category? CategoryNull = null;
     private readonly Shop.Domain.Entities.Category CategoryValid = new("Livros");

@@ -4,29 +4,31 @@ namespace Shop.Application.DTOs.Product;
 
 public class ProductDto
 {
-    [Required]
-    public string Name { get; set; }
-    [Required]
-    public decimal Price { get; set; }
-    [Required]
-    public int Stock { get; set; }
-    [Required]
-    public string Description { get; set; }
-    [Required]
-    public string ImageUrl { get; set; }
+    [Required] public string Name { get; set; }
+    [Required] public decimal Price { get; set; }
+    [Required] public int Stock { get; set; }
+    [Required] public string Description { get; set; }
+    [Required] public string ImageUrl { get; set; }
 
     public Domain.Entities.Category Category { get; set; }
 
-    public static explicit operator Domain.Entities.Product(ProductDto productDto)
-        => new Domain.Entities.Product(
-                productDto.Name, 
-                productDto.Price,
-                productDto.Stock,
-                productDto.Description,
-                productDto.ImageUrl); 
+    public static explicit operator Domain.Entities.Product(ProductDto? productDto)
+    {
+        if (productDto is null)
+            return null;
+        return new Domain.Entities.Product(
+            productDto.Name,
+            productDto.Price,
+            productDto.Stock,
+            productDto.Description,
+            productDto.ImageUrl);
+        }
 
-    public static explicit operator ProductDto(Domain.Entities.Product product)
-        => new ProductDto
+    public static explicit operator ProductDto(Domain.Entities.Product? product)
+    {
+        if (product is null)
+            return null;
+        return new ProductDto
         {
             Name = product.Name,
             Description = product.Description,
@@ -35,4 +37,5 @@ public class ProductDto
             Price = product.Price,
             Stock = product.Stock
         };
+    }
 }

@@ -3,9 +3,9 @@ using Shop.Product.Test.Mocks;
 
 namespace Shop.Product.Test.Applicaton.UseCases.Category.Query.GetByName;
 
-public class GetByNameTest
+public class GetByNameCategorTest
 {
-    private readonly GetByNameCategoryHandler CategoryHandler= new(new FakeUniOfWork());
+    private readonly GetByNameCategoryHandler CategoryHandler= new(new FakeUnitOfWork());
 
     private const string? NameNull = null;
     private const string NameNoExisting = "teste";

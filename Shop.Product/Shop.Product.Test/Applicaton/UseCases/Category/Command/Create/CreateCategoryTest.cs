@@ -5,7 +5,7 @@ namespace Shop.Product.Test.Applicaton.UseCases.Category.Command.Create;
 
 public class CreateCategoryTest  
 {
-    private readonly CreateCategoryHandler CategoryHandler = new(new FakeUniOfWork());
+    private readonly CreateCategoryHandler CategoryHandler = new(new FakeUnitOfWork());
     private const string NameValid = "teste";
     
     [Fact]
