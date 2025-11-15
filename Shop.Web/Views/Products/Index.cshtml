@@ -1,0 +1,31 @@
+@model IEnumerable<ProductViewModel> 
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Products</title>
+</head>
+<body>
+<div>
+    @foreach (var product in Model)
+    {
+        <div class="card mb-3 p-3 shadow-sm">
+            <h4 class="card-title">@product.Name</h4>
+            <p class="card-text text-muted">@product.Description</p>
+            <p><strong>Preço:</strong> R$ @product.Price</p>
+            <p><strong>Estoque:</strong> @product.Stock unidades</p>
+
+            <img src="@product.ImageUrl" 
+                 alt="@product.Name"
+                 class="img-fluid rounded mt-2" 
+                 style="max-width: 200px;" />
+        </div>
+    }
+</div>
+</body>
+</html>

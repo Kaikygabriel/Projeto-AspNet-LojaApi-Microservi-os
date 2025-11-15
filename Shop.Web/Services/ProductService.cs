@@ -1,0 +1,81 @@
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
+using Shop.Web.Models;
+using Shop.Web.Services.Interfaces;
+
+namespace Shop.Web.Services;
+
+public class ProductService : IProductService
+{
+    private const string ClientProduct = "ProductApi";
+    private const string EndPointAPi = "/products";
+    private readonly IHttpClientFactory _clientFactory;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
+    
+    public ProductService(IHttpClientFactory clientFactory)
+    {
+        _clientFactory = clientFactory;
+        _jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+    }
+
+    public async Task<IEnumerable<ProductViewModel>?> GetAllAsync()
+    {
+        var Products = new List<ProductViewModel>();
+        var client = _clientFactory.CreateClient(ClientProduct);
+        using var response = await client.GetAsync(EndPointAPi);
+        if (!response.IsSuccessStatusCode)
+            return null;
+            
+        var content = await response.Content.ReadAsStreamAsync();
+        return  JsonSerializer.Deserialize<List<ProductViewModel>>
+            (content, _jsonSerializerOptions);
+    }
+
+    public async Task<ProductViewModel?> GetByName(string name)
+    {
+        var client = _clientFactory.CreateClient(ClientProduct);
+        using var response = await client.GetAsync($"{EndPointAPi}/{name}");
+        if (!response.IsSuccessStatusCode)
+            return null;
+        var content =await response.Content.ReadAsStreamAsync();
+        return JsonSerializer.Deserialize<ProductViewModel>
+            (content, _jsonSerializerOptions);
+    }
+
+    public async Task<bool> Create(ProductViewModel product)
+    {
+        try
+        {
+            var client = _clientFactory.CreateClient(ClientProduct);
+            var Request = JsonSerializer.Serialize(product, _jsonSerializerOptions);
+            var content = new StringContent(Request,Encoding.UTF8,"Application/json");
+            using var response = await client.PostAsync(EndPointAPi,content);
+            if (!response.IsSuccessStatusCode)
+                return false; 
+            
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
+    public async Task<bool> Delete(string name)
+    {
+        try
+        {
+            var client = _clientFactory.CreateClient(ClientProduct);
+            using var response = await client.DeleteAsync($"{EndPointAPi}/{name}");
+            if (!response.IsSuccessStatusCode)
+                return false; 
+            
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+}

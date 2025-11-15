@@ -1,0 +1,11 @@
+using Shop.Web.Models;
+
+namespace Shop.Web.Services.Interfaces;
+
+public interface IProductService
+{
+    Task<IEnumerable<ProductViewModel>> GetAllAsync();
+    Task<ProductViewModel> GetByName(string name);
+    Task<bool> Create(ProductViewModel product);
+    Task<bool> Delete(string name);
+}
