@@ -6,6 +6,6 @@ public interface IProductService
 {
     Task<IEnumerable<ProductViewModel>> GetAllAsync();
     Task<ProductViewModel> GetByName(string name);
-    bool Create(ProductViewModel product);
-    bool Delete(string name);
+    Task<bool> Create(ProductViewModel product);
+    Task<bool> Delete(string name);
 }
