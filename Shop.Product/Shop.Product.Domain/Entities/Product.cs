@@ -5,7 +5,7 @@ namespace Shop.Domain.Entities;
 
 public class Product : Entity
 {
-    public Product(string name, decimal price, int stock, string description, string? imageUrl)
+    public Product(string name, decimal price, int stock, string description, string? imageUrl,int idCategory)
     {
         Validate(name, price, imageUrl, description);
         
@@ -14,6 +14,7 @@ public class Product : Entity
         Stock = stock;
         Description = description;
         ImageUrl = imageUrl;
+        IdCategory = idCategory;
     }
 
     public string Name { get; set; }
@@ -23,7 +24,9 @@ public class Product : Entity
     public string ImageUrl { get; set; }
 
     public Category Category { get; set; }
+    public int IdCategory { get; set; }
 
+    
     private void Validate(string name, decimal price,string imageUrl, string description)
     {
         if (string.IsNullOrWhiteSpace(name) || name.Length < 1 ||

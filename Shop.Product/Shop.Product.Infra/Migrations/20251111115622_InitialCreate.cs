@@ -34,7 +34,7 @@ namespace Shop.Product.Infra.Migrations
                     Stock = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

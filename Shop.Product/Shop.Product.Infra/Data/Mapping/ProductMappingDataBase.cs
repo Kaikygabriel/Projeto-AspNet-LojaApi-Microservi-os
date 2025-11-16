@@ -22,5 +22,10 @@ public class ProductMappingDataBase : IEntityTypeConfiguration<Domain.Entities.P
         builder.Property(x => x.ImageUrl)
             .HasMaxLength(300)
             .IsRequired();
+        builder
+            .HasOne(x => x.Category)
+            .WithMany(x => x.Products)
+            .HasForeignKey(x => x.IdCategory)
+            .IsRequired(false);
     }
 }

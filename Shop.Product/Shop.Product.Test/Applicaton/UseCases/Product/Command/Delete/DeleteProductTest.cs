@@ -14,7 +14,7 @@ public class DeleteProductTest
             price: 250.00m,
             stock: 35,
             description: "Teclado mecânico ABNT2 com switches Outemu Blue e iluminação RGB.",
-            imageUrl: "https://example.com/images/redragon-kumara.jpg");
+            imageUrl: "https://example.com/images/redragon-kumara.jpg",1);
     
         [Fact]
         public async Task DeleteProduct_WithProductNull_Return_False()

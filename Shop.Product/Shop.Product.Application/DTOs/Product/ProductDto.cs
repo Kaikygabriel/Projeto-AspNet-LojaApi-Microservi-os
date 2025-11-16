@@ -9,8 +9,8 @@ public class ProductDto
     [Required] public int Stock { get; set; }
     [Required] public string Description { get; set; }
     [Required] public string ImageUrl { get; set; }
-
-    public Domain.Entities.Category Category { get; set; }
+	
+    [Required] public int IdCategory { get; set; }
 
     public static explicit operator Domain.Entities.Product(ProductDto? productDto)
     {
@@ -21,7 +21,8 @@ public class ProductDto
             productDto.Price,
             productDto.Stock,
             productDto.Description,
-            productDto.ImageUrl);
+            productDto.ImageUrl,
+            productDto.IdCategory);
         }
 
     public static explicit operator ProductDto(Domain.Entities.Product? product)
@@ -32,10 +33,10 @@ public class ProductDto
         {
             Name = product.Name,
             Description = product.Description,
-            Category = product.Category,
             ImageUrl = product.ImageUrl,
             Price = product.Price,
-            Stock = product.Stock
+            Stock = product.Stock,
+            IdCategory = product.IdCategory
         };
     }
 }

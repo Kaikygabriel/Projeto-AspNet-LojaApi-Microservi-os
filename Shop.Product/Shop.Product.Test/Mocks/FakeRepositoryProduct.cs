@@ -12,21 +12,21 @@ public class FakeRepositoryProduct : IRepositoryProduct
             price: 4500.00m,
             stock: 15,
             description: "Notebook Dell com processador Intel Core i5, 8GB RAM e SSD de 256GB.",
-            imageUrl: "https://example.com/images/notebook-dell.jpg"
+            imageUrl: "https://example.com/images/notebook-dell.jpg",1
         ),
         new Shop.Domain.Entities.Product(
             name: "Smartphone Samsung Galaxy S23",
             price: 3799.99m,
             stock: 20,
             description: "Smartphone Samsung com tela AMOLED de 6.1'' e câmera tripla de 50MP.",
-            imageUrl: "https://example.com/images/galaxy-s23.jpg"
+            imageUrl: "https://example.com/images/galaxy-s23.jpg",1
         ),
         new Shop.Domain.Entities.Product(
             name: "Fone de Ouvido Bluetooth JBL Tune 510BT",
             price: 299.90m,
             stock: 50,
             description: "Fone de ouvido sem fio JBL com bateria de até 40 horas e carregamento rápido.",
-            imageUrl: "https://example.com/images/jbl-510bt.jpg"
+            imageUrl: "https://example.com/images/jbl-510bt.jpg",1
         )
     };
     public Task<IEnumerable<Shop.Domain.Entities.Product>> GetAllAsync()

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Product.Infra.Data.Context;
 
@@ -10,9 +11,11 @@ using Shop.Product.Infra.Data.Context;
 namespace Shop.Product.Infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251115194105_V2-AjustInModel")]
+    partial class V2AjustInModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +50,9 @@ namespace Shop.Product.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -74,7 +80,7 @@ namespace Shop.Product.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCategory");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -83,7 +89,9 @@ namespace Shop.Product.Infra.Migrations
                 {
                     b.HasOne("Shop.Domain.Entities.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("IdCategory");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });
