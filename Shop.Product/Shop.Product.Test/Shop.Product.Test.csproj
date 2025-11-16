@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Shop.Product.Api\Shop.Product.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Applicaton\UseCases\Product\Query\GetByName\" />
+  </ItemGroup>
+
 </Project>

@@ -21,24 +21,24 @@ public class ProductTest
     private const decimal PriceInvalid = 0;
 
     private const int StockValid = 1;
-
+    private const int CategoryValid = 1;
 
     [Fact]
     public void CreateProduct_NameInvalid_DescriptionInvalid_ImageUrlInvalid_PriceInvalid_Return_ProductException()
     {
         Assert.Throws<ProductException>(() => 
-            new Shop.Domain.Entities.Product(NameInvalid,PriceInvalid,StockValid,DescriptionInvalid,ImageUrlInvalid));
+            new Shop.Domain.Entities.Product(NameInvalid,PriceInvalid,StockValid,DescriptionInvalid,ImageUrlInvalid,CategoryValid));
     }
     [Fact]
     public void CreateProduct_NameNull_DescriptionNull_ImageUrlNull_PriceValid_Return_ProductException()
     {
         Assert.Throws<ProductException>(() => 
-            new Shop.Domain.Entities.Product(NameNull,PriceValid,StockValid,DescriptionNull,ImageUrlNull));
+            new Shop.Domain.Entities.Product(NameNull,PriceValid,StockValid,DescriptionNull,ImageUrlNull,CategoryValid));
     }
     [Fact]
     public void CreateProduct_NameValid_DescriptionValid_ImageUrlValid_PriceValid_Return_NotNull()
     {
-          var product = new Shop.Domain.Entities.Product(NameValid,PriceValid,StockValid,DescriptionValid,ImageUrlValid);
+          var product = new Shop.Domain.Entities.Product(NameValid,PriceValid,StockValid,DescriptionValid,ImageUrlValid,CategoryValid);
 
           Assert.NotNull(product);
     }

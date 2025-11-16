@@ -4,7 +4,7 @@ using Shop.Application.DTOs.Product;
 using Shop.Application.UseCases.Product.Command.Create;
 using Shop.Application.UseCases.Product.Command.Delete;
 using Shop.Application.UseCases.Product.Query.GetAll;
-using Shop.Application.UseCases.Product.Query.GetByName;
+using Shop.Application.UseCases.Product.Query.GetById;
 
 namespace Shop.Product.Api.Extensions.Product;
 
@@ -20,10 +20,10 @@ public static class MapProductExtension
                 ? Results.Ok(products)
                 : Results.BadRequest("Products not found");
         });
-        app.MapGet("/Products/{name:alpha:min(1)}", async 
-            (string name,IMediator mediator) =>
+        app.MapGet("/Products/{id:int}", async 
+            (int id,IMediator mediator) =>
         {
-            var query = new GetByNameProductQuery(name);
+            var query = new GetByIdProductQuery(id);
             var product = await mediator.Send(query);
             return product is not null
                 ? Results.Ok(product)
@@ -39,10 +39,10 @@ public static class MapProductExtension
                 : Results.NotFound("Error in create!");
         });
         
-        app.MapDelete("/Products/{name:alpha:min(1)}", async 
-            (string name,IMediator mediator) =>
+        app.MapDelete("/Products/{id:int}", async 
+            (int id,IMediator mediator) =>
         {
-            var query = new GetByNameProductQuery(name);
+            var query = new GetByIdProductQuery(id);
             var product = await mediator.Send(query);
             if(product is null)
                 return Results.BadRequest("Product not found");
