@@ -9,7 +9,7 @@ namespace Shop.Web.Services;
 public class ProductService : IProductService
 {
     private const string ClientProduct = "ProductApi";
-    private const string EndPointAPi = "/products";
+    private const string EndPointAPi = "products";
     private readonly IHttpClientFactory _clientFactory;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     
@@ -32,10 +32,10 @@ public class ProductService : IProductService
             (content, _jsonSerializerOptions);
     }
 
-    public async Task<ProductViewModel?> GetByName(string name)
+    public async Task<ProductViewModel?> GetById(int id)
     {
         var client = _clientFactory.CreateClient(ClientProduct);
-        using var response = await client.GetAsync($"{EndPointAPi}/{name}");
+        using var response = await client.GetAsync($"{EndPointAPi}/{id}");
         if (!response.IsSuccessStatusCode)
             return null;
         var content =await response.Content.ReadAsStreamAsync();
