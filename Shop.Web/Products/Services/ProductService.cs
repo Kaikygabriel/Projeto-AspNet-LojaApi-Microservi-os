@@ -1,10 +1,9 @@
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using Shop.Web.Models;
-using Shop.Web.Services.Interfaces;
+using Shop.Web.Products.Interfaces;
+using Shop.Web.Products.Models;
 
-namespace Shop.Web.Services;
+namespace Shop.Web.Products.Services;
 
 public class ProductService : IProductService
 {
@@ -62,12 +61,12 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<bool> Delete(string name)
+    public async Task<bool> Delete(int id)
     {
         try
         {
             var client = _clientFactory.CreateClient(ClientProduct);
-            using var response = await client.DeleteAsync($"{EndPointAPi}/{name}");
+            using var response = await client.DeleteAsync($"{EndPointAPi}/{id}");
             if (!response.IsSuccessStatusCode)
                 return false; 
             

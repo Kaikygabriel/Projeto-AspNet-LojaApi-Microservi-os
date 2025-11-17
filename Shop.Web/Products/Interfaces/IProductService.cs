@@ -1,11 +1,12 @@
 using Shop.Web.Models;
+using Shop.Web.Products.Models;
 
-namespace Shop.Web.Services.Interfaces;
+namespace Shop.Web.Products.Interfaces;
 
 public interface IProductService
 {
     Task<IEnumerable<ProductViewModel>> GetAllAsync();
     Task<ProductViewModel> GetById(int id);
     Task<bool> Create(ProductViewModel product);
-    Task<bool> Delete(string name);
+    Task<bool> Delete(int id);
 }

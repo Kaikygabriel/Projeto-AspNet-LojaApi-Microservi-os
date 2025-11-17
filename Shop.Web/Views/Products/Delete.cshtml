@@ -46,14 +46,12 @@
 
 <body>
 
-<div class="container">
-    <form asp-action="Delete" asp-controller="Products" enctype="multipart/form-data" method="post">
-    @Html.AntiForgeryToken()
+<div class="container" >
     <div class="product-container row g-4" style="margin-top: 20px">
 
         <!-- Imagem -->
         <div class="col-md-5">
-            <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image shadow-sm"/>
+            <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image shadow-sm" />
         </div>
 
         <!-- Informações -->
@@ -71,20 +69,11 @@
             </p>
 
             <div class="mt-4 d-flex gap-3">
-                <button class="btn btn-primary btn-buy w-50">Adicionar ao Carrinho</button>
-
-                <a asp-controller="Products"
-                   asp-action="Index"
-                   class="btn btn-outline-secondary btn-buy w-50">
-                    Voltar
-                </a>
+                <button class="btn btn-primary btn-buy w-50 bg-danger" 
+                        asp-controller="Products" asp-action="Delete"  >Deletar</button>
             </div>
         </div>
-        
     </div>
-    <button type="submit" class="btn btn-primary">Deletar</button>
-    <a asp-action="Index" asp-controller="Products" class="btn btn-secondary ms-2">Cancelar</a>
-    </form>
 </div>
 
 </body>

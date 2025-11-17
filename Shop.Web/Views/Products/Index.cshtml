@@ -1,4 +1,4 @@
-@model IEnumerable<ProductViewModel>
+@model IEnumerable<Shop.Web.Products.Models.ProductViewModel>
 
 @{
     Layout = null;
@@ -38,10 +38,21 @@
 </head>
 
 <body>
-
+    
     <div class="container">
         <h2 class="text-center mb-4 fw-bold">Produtos</h2>
-
+        <h2 class="text-center mb-4 fw-bold ">
+            <a asp-controller="Products"
+               asp-action="Create"
+               class="btn btn-outline-secondary ">
+                Criar Produto
+            </a> 
+            <a asp-controller="Products"
+               asp-action="Delete"
+               class="btn btn-outline-secondary ">
+                Deletar Produto
+            </a> 
+        </h2>  
         <div class="row justify-content-center g-4">
             @foreach (var product in Model)
             {
