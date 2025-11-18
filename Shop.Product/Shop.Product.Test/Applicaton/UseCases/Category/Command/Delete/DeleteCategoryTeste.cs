@@ -4,10 +4,10 @@ using Shop.Product.Test.Mocks;
 
 namespace Shop.Product.Test.Applicaton.UseCases.Category.Command.Delete;
 
-public class DeleteCategoryTeste 
+public class DeleteCategoryTeste
 {
     private readonly DeleteCategoryHandler CategoryHandler = new(new FakeUnitOfWork());
-    
+
     private readonly Shop.Domain.Entities.Category? CategoryNull = null;
     private readonly Shop.Domain.Entities.Category CategoryValid = new("Livros");
     [Fact]
@@ -16,7 +16,7 @@ public class DeleteCategoryTeste
         //Arrange
         var command = new DeleteCategoryCommand(CategoryNull);
         //act
-        var result = await CategoryHandler.Handle(command,default);
+        var result = await CategoryHandler.Handle(command, default);
         //assert    
         Assert.False(result);
     }
@@ -26,7 +26,7 @@ public class DeleteCategoryTeste
         //Arrange
         var command = new DeleteCategoryCommand(CategoryValid);
         //act
-        var result = await CategoryHandler.Handle(command,default);
+        var result = await CategoryHandler.Handle(command, default);
         //assert    
         Assert.True(result);
     }

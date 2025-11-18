@@ -11,8 +11,8 @@ using Shop.Product.Infra.Data.Context;
 namespace Shop.Product.Infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251111115622_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251118200622_v3-AjusteNoProduto")]
+    partial class v3AjusteNoProduto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,18 +50,18 @@ namespace Shop.Product.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("IdCategory")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -69,6 +69,7 @@ namespace Shop.Product.Infra.Migrations
                         .HasColumnType("nvarchar(120)");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
                         .HasColumnType("MONEY");
 
                     b.Property<int>("Stock")
@@ -76,7 +77,7 @@ namespace Shop.Product.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("IdCategory");
 
                     b.ToTable("Products");
                 });
@@ -85,7 +86,7 @@ namespace Shop.Product.Infra.Migrations
                 {
                     b.HasOne("Shop.Domain.Entities.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("IdCategory")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

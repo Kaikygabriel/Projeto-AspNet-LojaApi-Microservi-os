@@ -5,7 +5,7 @@ namespace Shop.Product.Test.Applicaton.UseCases.Category.Query.GetByName;
 
 public class GetByNameCategorTest
 {
-    private readonly GetByNameCategoryHandler CategoryHandler= new(new FakeUnitOfWork());
+    private readonly GetByNameCategoryHandler CategoryHandler = new(new FakeUnitOfWork());
 
     private const string? NameNull = null;
     private const string NameNoExisting = "teste";
@@ -15,22 +15,22 @@ public class GetByNameCategorTest
     public async Task GetByNameHandler_WithNameNull_Return_Null()
     {
         var query = new GetByNameCategoryQuery(NameNull);
-        var result = await CategoryHandler.Handle(query,CancellationToken.None);
+        var result = await CategoryHandler.Handle(query, CancellationToken.None);
         Assert.Null(result);
     }
     [Fact]
     public async Task GetByNameHandler_WithNameNoExinst_Return_Null()
     {
         var query = new GetByNameCategoryQuery(NameNoExisting);
-        var result = await CategoryHandler.Handle(query,CancellationToken.None);
+        var result = await CategoryHandler.Handle(query, CancellationToken.None);
         Assert.Null(result);
     }
     [Fact]
     public async Task GetByNameHandler_WithNameValid_Return_Category()
     {
         var query = new GetByNameCategoryQuery(NameValid);
-        var result = await CategoryHandler.Handle(query,CancellationToken.None);
+        var result = await CategoryHandler.Handle(query, CancellationToken.None);
         Assert.IsType<Shop.Domain.Entities.Category>(result);
     }
-    
+
 }

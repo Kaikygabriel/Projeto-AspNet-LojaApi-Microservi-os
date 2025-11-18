@@ -13,6 +13,11 @@ public class CreateProductHandler :HandlerBase ,IRequestHandler<CreateProductCom
     {
         try
         {
+            var productExisting = 
+                await UnitOfWork.RepositoryProduct.GetByPredicate(x => x.Name == request.Product.Name); 
+            if(productExisting is not null)
+                return false;
+                
             UnitOfWork.RepositoryProduct.Create(request.Product);
             await UnitOfWork.CommitAsync();
             return true;
