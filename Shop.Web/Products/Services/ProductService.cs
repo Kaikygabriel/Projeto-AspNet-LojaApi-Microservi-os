@@ -1,15 +1,14 @@
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using Shop.Web.Models;
-using Shop.Web.Services.Interfaces;
+using Shop.Web.Products.Interfaces;
+using Shop.Web.Products.Models;
 
-namespace Shop.Web.Services;
+namespace Shop.Web.Products.Services;
 
 public class ProductService : IProductService
 {
     private const string ClientProduct = "ProductApi";
-    private const string EndPointAPi = "/products";
+    private const string EndPointAPi = "products";
     private readonly IHttpClientFactory _clientFactory;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     
@@ -32,10 +31,10 @@ public class ProductService : IProductService
             (content, _jsonSerializerOptions);
     }
 
-    public async Task<ProductViewModel?> GetByName(string name)
+    public async Task<ProductViewModel?> GetById(int id)
     {
         var client = _clientFactory.CreateClient(ClientProduct);
-        using var response = await client.GetAsync($"{EndPointAPi}/{name}");
+        using var response = await client.GetAsync($"{EndPointAPi}/{id}");
         if (!response.IsSuccessStatusCode)
             return null;
         var content =await response.Content.ReadAsStreamAsync();
@@ -62,12 +61,12 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<bool> Delete(string name)
+    public async Task<bool> Delete(int id)
     {
         try
         {
             var client = _clientFactory.CreateClient(ClientProduct);
-            using var response = await client.DeleteAsync($"{EndPointAPi}/{name}");
+            using var response = await client.DeleteAsync($"{EndPointAPi}/{id}");
             if (!response.IsSuccessStatusCode)
                 return false; 
             

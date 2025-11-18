@@ -8,7 +8,7 @@ public class ProductTest
     private const string NameValid = "Teste";
     private const string NameInvalid = "te";
     private const string? NameNull = null;
-    
+
     private const string DescriptionValid = "Teste";
     private const string DescriptionInvalid = "te";
     private const string? DescriptionNull = null;
@@ -26,20 +26,20 @@ public class ProductTest
     [Fact]
     public void CreateProduct_NameInvalid_DescriptionInvalid_ImageUrlInvalid_PriceInvalid_Return_ProductException()
     {
-        Assert.Throws<ProductException>(() => 
-            new Shop.Domain.Entities.Product(NameInvalid,PriceInvalid,StockValid,DescriptionInvalid,ImageUrlInvalid,CategoryValid));
+        Assert.Throws<ProductException>(() =>
+            new Shop.Domain.Entities.Product(NameInvalid, PriceInvalid, StockValid, DescriptionInvalid, ImageUrlInvalid, CategoryValid));
     }
     [Fact]
     public void CreateProduct_NameNull_DescriptionNull_ImageUrlNull_PriceValid_Return_ProductException()
     {
-        Assert.Throws<ProductException>(() => 
-            new Shop.Domain.Entities.Product(NameNull,PriceValid,StockValid,DescriptionNull,ImageUrlNull,CategoryValid));
+        Assert.Throws<ProductException>(() =>
+            new Shop.Domain.Entities.Product(NameNull, PriceValid, StockValid, DescriptionNull, ImageUrlNull, CategoryValid));
     }
     [Fact]
     public void CreateProduct_NameValid_DescriptionValid_ImageUrlValid_PriceValid_Return_NotNull()
     {
-          var product = new Shop.Domain.Entities.Product(NameValid,PriceValid,StockValid,DescriptionValid,ImageUrlValid,CategoryValid);
+        var product = new Shop.Domain.Entities.Product(NameValid, PriceValid, StockValid, DescriptionValid, ImageUrlValid, CategoryValid);
 
-          Assert.NotNull(product);
+        Assert.NotNull(product);
     }
 }

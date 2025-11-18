@@ -57,8 +57,8 @@ namespace Shop.Product.Infra.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -83,7 +83,9 @@ namespace Shop.Product.Infra.Migrations
                 {
                     b.HasOne("Shop.Domain.Entities.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("IdCategory");
+                        .HasForeignKey("IdCategory")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });

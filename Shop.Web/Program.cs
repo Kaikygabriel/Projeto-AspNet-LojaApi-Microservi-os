@@ -1,5 +1,7 @@
-using Shop.Web.Services;
-using Shop.Web.Services.Interfaces;
+using Shop.Web.Category.Interfaces;
+using Shop.Web.Category.Services;
+using Shop.Web.Products.Interfaces;
+using Shop.Web.Products.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,7 @@ builder.Services.AddHttpClient("ProductApi",x =>
 
 });
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService,CategoryService>();
 
 var app = builder.Build();
 

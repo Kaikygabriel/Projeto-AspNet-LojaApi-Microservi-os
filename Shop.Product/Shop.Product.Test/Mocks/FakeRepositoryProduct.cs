@@ -13,7 +13,10 @@ public class FakeRepositoryProduct : IRepositoryProduct
             stock: 15,
             description: "Notebook Dell com processador Intel Core i5, 8GB RAM e SSD de 256GB.",
             imageUrl: "https://example.com/images/notebook-dell.jpg",1
-        ),
+        )
+        {
+            Id  = 1
+        },
         new Shop.Domain.Entities.Product(
             name: "Smartphone Samsung Galaxy S23",
             price: 3799.99m,
