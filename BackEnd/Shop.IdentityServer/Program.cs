@@ -23,7 +23,6 @@ var builderIdentity = builder.Services.AddIdentityServer(options =>
         options.Events.RaiseInformationEvents = true;
         options.Events.RaiseFailureEvents = true;
         options.Events.RaiseSuccessEvents = true;
-
         options.EmitStaticAudienceClaim = true;
     })
     .AddInMemoryIdentityResources(IdentityConfiguration.IdentityRosources)
@@ -32,6 +31,8 @@ var builderIdentity = builder.Services.AddIdentityServer(options =>
     .AddAspNetIdentity<ApplicationUser>();
 builderIdentity.AddDeveloperSigningCredential();
 builderIdentity.AddTestUsers(TestUsers.Users);
+
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
