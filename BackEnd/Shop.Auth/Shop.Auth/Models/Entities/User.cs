@@ -9,6 +9,8 @@ public class User : Entity
     protected User(){}
     public User(string name, string email, string passwordHash)
     {
+        if(!IsValidConstructor(name,passwordHash))
+            throw new Exception();
         Name = name;
         Email = new Email(email);
         PasswordHash = passwordHash;
@@ -38,6 +40,12 @@ public class User : Entity
     public bool IsValid()
     {
         if(PasswordHash.Length < 3 || string.IsNullOrWhiteSpace(Name)||Name.Length < 3)
+            return false;
+        return true;
+    }
+    public bool IsValidConstructor(string name,string password)
+    {
+        if(string.IsNullOrWhiteSpace(password)||password.Length < 3 || string.IsNullOrWhiteSpace(name)||name.Length < 3)
             return false;
         return true;
     }
