@@ -22,8 +22,4 @@
     <ProjectReference Include="..\Shop.Auth\Shop.Authh.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mocks\" />
-  </ItemGroup>
-
 </Project>

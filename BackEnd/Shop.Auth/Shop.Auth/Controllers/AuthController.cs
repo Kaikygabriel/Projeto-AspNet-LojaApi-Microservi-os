@@ -23,7 +23,7 @@ public class AuthController  : ControllerBase
     }
 
     [HttpPost("Cadastro")]
-     public async Task<ActionResult> Cadastro(UserCadastro userCadastro)
+     public async Task<ActionResult> Cadastro([FromBody]UserCadastro userCadastro)
      {
          if (userCadastro is null )
              return BadRequest("User is invalid");
@@ -36,7 +36,7 @@ public class AuthController  : ControllerBase
      }
      
     [HttpPost("Login")]
-    public async Task<ActionResult> Login(UserLogin userLogin)
+    public async Task<ActionResult> Login([FromBody]UserLogin userLogin)
     {
         if (userLogin is null )
             return BadRequest("User is invalid");
@@ -49,7 +49,7 @@ public class AuthController  : ControllerBase
         return Ok(code);
     }
     [HttpPost("CodeAuthentication")]
-    public async Task<ActionResult> LoginCodeAuthentication(string codeAuthentication)
+    public async Task<ActionResult> LoginCodeAuthentication([FromBody]string codeAuthentication)
     {
         if(codeAuthentication is null)
             return BadRequest("");

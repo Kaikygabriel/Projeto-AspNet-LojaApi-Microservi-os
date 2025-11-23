@@ -17,7 +17,7 @@ public static class MapCategoryExtesion
         {
             var categorys = await mediator.Send(new GetAllCategoryQuery());
             return categorys is not null ? Results.Ok(categorys) : Results.BadRequest();
-        });
+        }).RequireAuthorization();
 
         app.MapGet("Categorys/{name:alpha}", async (
             string name, IMediator mediator) =>
@@ -25,7 +25,7 @@ public static class MapCategoryExtesion
             var category = await mediator.Send(new GetByNameCategoryQuery(name));
             var categoryDto = (CategoryDto)category;
             return Results.Ok(category);
-        });
+        }).RequireAuthorization();
 
         app.MapPost("Categorys", async (
             [FromBody] CategoryDto category, IMediator mediator) =>
@@ -33,7 +33,7 @@ public static class MapCategoryExtesion
             var resultCreate =
                 await mediator.Send(new CreateCategoryCommand((Domain.Entities.Category)category));
             return resultCreate ? Results.Created() : Results.BadRequest("Error in create !");
-        });
+        }).RequireAuthorization();
 
         app.MapDelete("Categorys/{name:alpha}",
             async (
@@ -50,6 +50,6 @@ public static class MapCategoryExtesion
                 return resultDelete
                     ? Results.Ok(category)
                     : Results.NotFound("Error in delete category");
-            });
+            }).RequireAuthorization();
     }
 }

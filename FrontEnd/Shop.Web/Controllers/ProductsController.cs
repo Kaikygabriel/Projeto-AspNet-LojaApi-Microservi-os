@@ -23,14 +23,20 @@ public class ProductsController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var products = await _productService.GetAllAsync();
+        var token = GetTokenOfCookie();
+        if (token is null)
+            return RedirectToAction("Cadastro", "Auth");  
+        var products = await _productService.GetAllAsync(token);
         if(products is null) return View("Error");
         return View(products);
     }
     [HttpGet("GetById/{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var product = await _productService.GetById(id);
+        var token = GetTokenOfCookie();
+        if (token is null)
+            return RedirectToAction("Cadastro", "Auth");
+        var product = await _productService.GetById(id,token);
         if (product is null)
             return NotFound();
         return View(product);
@@ -47,8 +53,10 @@ public class ProductsController : Controller
     {
         if (!ModelState.IsValid || model is null)
             return View(model);
-
-        var resultCreate = await _productService.Create(model);
+        var token = GetTokenOfCookie();
+        if (token is null)
+            return RedirectToAction("Cadastro", "Auth");
+        var resultCreate = await _productService.Create(model,token);
         
         return resultCreate? Redirect($"Home/Index") : View(model) ;
     }
@@ -57,11 +65,20 @@ public class ProductsController : Controller
     {
         return View();
     }
-    [HttpPost("Create")]
+    [HttpPost("Delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var resultCreate = await _productService.Delete(id);
+        var token = GetTokenOfCookie();
+        if (token is null)
+            return RedirectToAction("Cadastro", "Auth");
+        var resultCreate = await _productService.Delete(id,token);
         
         return resultCreate? Redirect($"Home/Index") : View("Error") ;
+    }
+
+    private string? GetTokenOfCookie()
+    {
+        return Request.Cookies["Token-Auth"];
+
     }
 }
