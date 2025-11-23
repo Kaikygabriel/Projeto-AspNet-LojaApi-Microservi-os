@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Shop.Web.Products.Interfaces;
@@ -18,10 +19,10 @@ public class ProductService : IProductService
         _jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
 
-    public async Task<IEnumerable<ProductViewModel>?> GetAllAsync()
+    public async Task<IEnumerable<ProductViewModel>?> GetAllAsync(string token)
     {
         var Products = new List<ProductViewModel>();
-        var client = _clientFactory.CreateClient(ClientProduct);
+        var client = CreateHttpClientProduct(token);
         using var response = await client.GetAsync(EndPointAPi);
         if (!response.IsSuccessStatusCode)
             return null;
@@ -31,9 +32,9 @@ public class ProductService : IProductService
             (content, _jsonSerializerOptions);
     }
 
-    public async Task<ProductViewModel?> GetById(int id)
+    public async Task<ProductViewModel?> GetById(int id,string token)
     {
-        var client = _clientFactory.CreateClient(ClientProduct);
+        var client = CreateHttpClientProduct( token);
         using var response = await client.GetAsync($"{EndPointAPi}/{id}");
         if (!response.IsSuccessStatusCode)
             return null;
@@ -42,11 +43,11 @@ public class ProductService : IProductService
             (content, _jsonSerializerOptions);
     }
 
-    public async Task<bool> Create(ProductViewModel product)
+    public async Task<bool> Create(ProductViewModel product,string token)
     {
         try
         {
-            var client = _clientFactory.CreateClient(ClientProduct);
+            var client = CreateHttpClientProduct( token);
             var Request = JsonSerializer.Serialize(product, _jsonSerializerOptions);
             var content = new StringContent(Request,Encoding.UTF8,"Application/json");
             using var response = await client.PostAsync(EndPointAPi,content);
@@ -61,11 +62,11 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<bool> Delete(int id)
+    public async Task<bool> Delete(int id,string token)
     {
         try
         {
-            var client = _clientFactory.CreateClient(ClientProduct);
+            var client = CreateHttpClientProduct( token);
             using var response = await client.DeleteAsync($"{EndPointAPi}/{id}");
             if (!response.IsSuccessStatusCode)
                 return false; 
@@ -76,5 +77,13 @@ public class ProductService : IProductService
         {
             return false;
         }
+    }
+
+    private HttpClient CreateHttpClientProduct(string token)
+    {
+        var client = _clientFactory.CreateClient(ClientProduct);
+        client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer",token);
+        return client;
     }
 }

@@ -2,6 +2,7 @@ using Shop.Web.Category.Interfaces;
 using Shop.Web.Category.Services;
 using Shop.Web.Products.Interfaces;
 using Shop.Web.Products.Services;
+using Shop.Web.User.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +11,15 @@ builder.Services.AddHttpClient("ProductApi",x =>
 {
     x.BaseAddress = new Uri(builder.Configuration["ProductApi:UriBase"]!);
     x.DefaultRequestHeaders.Accept.ParseAdd("application/json");
-
+});
+builder.Services.AddHttpClient("AuthApi",x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration["AuthApi:UriBase"]!);
+    x.DefaultRequestHeaders.Accept.ParseAdd("application/json");
 });
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService,CategoryService>();
+builder.Services.AddScoped<ServiceAuth>();
 
 var app = builder.Build();
 
