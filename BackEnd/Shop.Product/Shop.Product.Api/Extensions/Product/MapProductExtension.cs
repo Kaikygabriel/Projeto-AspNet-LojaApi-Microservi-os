@@ -19,7 +19,7 @@ public static class MapProductExtension
             return products is not null
                 ? Results.Ok(products)
                 : Results.BadRequest("Products not found");
-        });
+        }).RequireAuthorization();
         app.MapGet("/Products/{id:int}", async 
             (int id,IMediator mediator) =>
         {
@@ -28,7 +28,7 @@ public static class MapProductExtension
             return product is not null
                 ? Results.Ok(product)
                 : Results.BadRequest("Product not found");
-        });
+        }).RequireAuthorization();
         app.MapPost("/Products", async
             ([FromBody]ProductDto productDto,IMediator mediator) =>
         {
@@ -37,7 +37,7 @@ public static class MapProductExtension
             return resultCreate 
                 ? Results.Created()
                 : Results.NotFound("Error in create!");
-        });
+        }).RequireAuthorization();
         
         app.MapDelete("/Products/{id:int}", async 
             (int id,IMediator mediator) =>
@@ -51,6 +51,6 @@ public static class MapProductExtension
             return result 
                 ? Results.Ok(product)
                 : Results.NotFound("Error in delete!");
-        });
+        }).RequireAuthorization();
     }
 }
