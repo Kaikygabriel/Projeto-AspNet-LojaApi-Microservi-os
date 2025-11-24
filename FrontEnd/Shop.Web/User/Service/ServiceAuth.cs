@@ -19,7 +19,7 @@ public class ServiceAuth
         _jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
 
-    public async Task<string> Cadastro(UserCadastro userCadastro)
+    public async Task<UserToken> Cadastro(UserCadastro userCadastro)
     {
         var client = _clientFactory.CreateClient(ClientAuth);
         var user = JsonSerializer.Serialize(userCadastro);
@@ -31,8 +31,25 @@ public class ServiceAuth
         var codeAuthorization = JsonSerializer.Deserialize<string>(responseApi,_jsonSerializerOptions);
 
         var token = await GetAccessTokenOfAuthenticationCode(codeAuthorization);
-        return token;
+        
+        var modelReturn = new UserToken { Token = token, Email = userCadastro.Email  };
+        return modelReturn;
     }
+    public async Task<UserToken> Login(Userlogin user)
+        {
+            var client = _clientFactory.CreateClient(ClientAuth);
+            var userJson = JsonSerializer.Serialize(user);
+            var stringContent = new StringContent(userJson,Encoding.UTF8,"application/json");
+            using var response = await client.PostAsync($"{EndPointAPi}/Login",stringContent);
+            if (!response.IsSuccessStatusCode)
+                return null;
+            var responseApi =await response.Content.ReadAsStreamAsync();
+            var codeAuthorization = JsonSerializer.Deserialize<string>(responseApi,_jsonSerializerOptions);
+    
+            var token = await GetAccessTokenOfAuthenticationCode(codeAuthorization);
+            var modelReturn = new UserToken { Token = token, Email = user.Email };
+            return modelReturn;
+        }
 
     private async Task<string> GetAccessTokenOfAuthenticationCode(string code)
     {

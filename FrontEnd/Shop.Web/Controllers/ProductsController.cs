@@ -44,7 +44,8 @@ public class ProductsController : Controller
     [HttpGet("Create")]
     public async Task<IActionResult> Create()
     {
-        ViewBag.Categorys = new SelectList(await _categoryService.GetAllAsync(),
+        var token = GetTokenOfCookie();
+        ViewBag.Categorys = new SelectList(await _categoryService.GetAllAsync(token),
             "Id","Name");
         return View();
     }
@@ -58,7 +59,7 @@ public class ProductsController : Controller
             return RedirectToAction("Cadastro", "Auth");
         var resultCreate = await _productService.Create(model,token);
         
-        return resultCreate? Redirect($"Home/Index") : View(model) ;
+        return resultCreate? RedirectToAction("Index","Home") : View(model) ;
     }
     [HttpGet("Delete")]
     public async Task<IActionResult> Delete()

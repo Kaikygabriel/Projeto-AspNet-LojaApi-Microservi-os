@@ -15,10 +15,18 @@ public class CategorysController : Controller
     [HttpGet]
     public async Task<ActionResult> Index()
     {
-        var categorys = await _categoryService.GetAllAsync();
+        var token = GetTokenOfCookie();
+        if(token is null)
+            return RedirectToAction("Cadastro", "Auth");
+        var categorys = await _categoryService.GetAllAsync(token);
         if (categorys is null)
             return View("Error");
 
         return View(categorys);
+    }
+    private string? GetTokenOfCookie()
+    {
+        return Request.Cookies["Token-Auth"];
+
     }
 }
