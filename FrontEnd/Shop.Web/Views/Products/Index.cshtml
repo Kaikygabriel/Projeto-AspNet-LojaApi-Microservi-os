@@ -1,9 +1,5 @@
 @model IEnumerable<Shop.Web.Products.Models.ProductViewModel>
 
-@{
-Layout = null;
-}
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -22,18 +18,21 @@ Layout = null;
 
     <h2 class="text-center page-title mb-4">Produtos</h2>
 
-    <!-- Botões principais -->
-    <div class="btn-actions-container">
-        <a asp-controller="Products" asp-action="Create"
-           class="btn btn-outline-primary fw-semibold">
-            <i class="fa-solid fa-plus"></i> Criar Produto
-        </a>
+    @if(ViewBag.UserAdmin)
+    {
+        <div class="btn-actions-container">
+            <a asp-controller="Products" asp-action="Create"
+               class="btn btn-outline-primary fw-semibold">
+                <i class="fa-solid fa-plus"></i> Criar Produto
+            </a>
 
-        <a asp-controller="Products" asp-action="Delete"
-           class="btn btn-outline-danger fw-semibold">
-            <i class="fa-solid fa-trash"></i> Deletar Produto
-        </a>
-    </div>
+            <a asp-controller="Products" asp-action="Delete"
+               class="btn btn-outline-danger fw-semibold">
+                <i class="fa-solid fa-trash"></i> Deletar Produto
+            </a>
+        </div>
+    }
+  
 
     <!-- Grid de produtos -->
     <div class="row justify-content-center g-4">

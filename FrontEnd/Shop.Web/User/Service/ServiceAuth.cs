@@ -51,6 +51,19 @@ public class ServiceAuth
             return modelReturn;
         }
 
+    public async Task<Models.User> GetUserOfToken(string token)
+    {
+        var client = _clientFactory.CreateClient(ClientAuth);
+        var userJson = JsonSerializer.Serialize(token);
+        var stringContent = new StringContent(userJson,Encoding.UTF8,"application/json");
+        using var response = await client.PostAsync($"{EndPointAPi}/InfoUser",stringContent);
+        if (!response.IsSuccessStatusCode)
+            return null;
+        var responseApi =await response.Content.ReadAsStreamAsync();
+        var user = JsonSerializer.Deserialize<Models.User>(responseApi,_jsonSerializerOptions);
+        
+        return user;
+    }
     private async Task<string> GetAccessTokenOfAuthenticationCode(string code)
     {
         var client = _clientFactory.CreateClient(ClientAuth);

@@ -12,22 +12,7 @@ namespace Shop.Auth.Serviços;
 public class TokenService : ITokenService
 {
 
-    // public string GerenateAcessToken(IEnumerable<Claim> claims, IConfiguration configuration)
-    // {
-    //     var key = Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]!);
-    //     var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
-    //     var tokenDescriptor = new SecurityTokenDescriptor
-    //     {
-    //         SigningCredentials = credentials,
-    //         Audience = configuration["Jwt:Audience"],
-    //         Issuer = configuration["Jwt:Issuer"],
-    //         Expires = DateTime.UtcNow.AddDays(3),
-    //         Subject = new ClaimsIdentity(claims)
-    //     };
-    //     var tokenHandler = new JwtSecurityTokenHandler();
-    //     var token = tokenHandler.CreateToken(tokenDescriptor);
-    //     return tokenHandler.WriteToken(token);
-    // }
+
     public string GerenateAcessToken(IEnumerable<Claim> claims, IConfiguration configuration)
     {
         var key = configuration["Jwt:SecretKey"]!;
@@ -58,6 +43,27 @@ public class TokenService : ITokenService
         };
         foreach (var role in user.GetRoles())
          claims.Add(new Claim(ClaimTypes.Role,role));
+        return claims;
+    }
+
+    public ClaimsPrincipal GenerateClaimsPrincipalOfToken(string token , IConfiguration configuration)
+    {
+        var key = configuration["Jwt:SecretKey"]!;
+        var rsa = RSA.Create();
+        rsa.ImportFromPem(key);
+
+        
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var claims = tokenHandler.ValidateToken(token,new TokenValidationParameters
+        {
+            ValidateAudience = false,
+            ValidateIssuer = false,
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            IssuerSigningKey = new RsaSecurityKey(rsa)
+        },out var Jwttoken);
+        if (Jwttoken is not JwtSecurityToken)
+            return null;
         return claims;
     }
 }

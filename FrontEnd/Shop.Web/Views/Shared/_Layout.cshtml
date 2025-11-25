@@ -1,22 +1,30 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>@ViewData["Title"] - Shop.Web</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="~/css/Layout.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Shop.Web.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+
+    <!-- Font Awesome (versão corrigida) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
-<body>
+<body class="bg-light">
+
+    <!-- NAVBAR -->
     <header>
-        <nav class="navbar navbar-expand-sm bg-white border-bottom shadow-sm">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="fa-solid fa-store"></i> Shop.Web
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom">
+            <div class="container">
+
+                <a class="navbar-brand fw-bold text-primary" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-store me-2"></i> Shop.Web
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -26,53 +34,61 @@
                 </button>
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav align-items-center">
+                    <ul class="navbar-nav align-items-center gap-2">
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link fw-semibold" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Products</a>
+                            <a class="nav-link fw-semibold" asp-controller="Products" asp-action="Index">Products</a>
                         </li>
 
                         @if (ViewBag.EmailUser is not null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-primary fw-semibold">
+                                <span class="nav-link text-primary fw-bold">
                                     <i class="fa-solid fa-user"></i> @ViewBag.EmailUser
-                                </a>
+                                </span>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark fw-semibold" asp-controller="Auth" asp-action="Cadastro">
+                                <a class="nav-link text-dark fw-semibold"
+                                   asp-controller="Auth" asp-action="Cadastro">
                                     <i class="fa-solid fa-user-plus"></i> Cadastre-se
                                 </a>
                             </li>
                         }
+
                     </ul>
                 </div>
+
             </div>
         </nav>
     </header>
 
-    <div class="container mt-4 mb-5">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top text-muted text-center">
-        <div class="container">
-            &copy; 2025 - Shop.Web
-        </div>
-    </footer>
+    <!-- MAIN CONTENT -->
+    <main class="container py-4">
+        @RenderBody()
+    </main>
 
+
+    <!-- FOOTER -->
+    @* <footer class="border-top text-muted text-center py-3 bg-white"> *@
+    @*     <div class="container"> *@
+    @*         &copy; 2025 - Shop.Web *@
+    @*     </div> *@
+    @* </footer> *@
+
+
+    <!-- JS -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

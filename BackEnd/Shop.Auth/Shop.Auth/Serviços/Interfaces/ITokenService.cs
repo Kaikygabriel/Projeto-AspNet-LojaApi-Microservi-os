@@ -7,4 +7,6 @@ public interface ITokenService
 {
     string GerenateAcessToken(IEnumerable<Claim> claims,IConfiguration configuration);
     IEnumerable<Claim> GetClaimsOfUser(User user);
+    ClaimsPrincipal GenerateClaimsPrincipalOfToken(string token, IConfiguration configuration);
+    
 }

@@ -1,5 +1,8 @@
+using System.Security.Claims;
 using Microsoft.Extensions.Caching.Memory;
+using Shop.Auth.Models;
 using Shop.Auth.Serviços.Interfaces;
+using Shop.Authh.DTOs;
 
 namespace Shop.Auth.Serviços;
 
@@ -42,5 +45,28 @@ public class AuthenticationTokenService : IAuthenticationTokenService
         
         return _tokenService.GerenateAcessToken(_tokenService.GetClaimsOfUser(user),_configuration);
     }
-    
+
+    public UserInfo GetUserFromToken(string token)
+    {
+        var claimsPrincipal = _tokenService.GenerateClaimsPrincipalOfToken(token, _configuration);
+
+        var name = claimsPrincipal.Identity?.Name;
+        
+        var email = claimsPrincipal.Claims
+            .FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+        var roles = claimsPrincipal.Claims
+            .Where(c => c.Type == ClaimTypes.Role)
+            .Select(c => c.Value)
+            .ToList();
+
+        var user = new UserInfo
+        {
+            Name = name,
+            Email = email,
+        };
+        foreach (var role in roles)
+            user.Roles.Add(role);
+        return user;
+    }
+
 }

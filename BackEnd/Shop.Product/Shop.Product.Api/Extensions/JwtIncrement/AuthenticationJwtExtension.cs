@@ -31,6 +31,7 @@ public static class AuthenticationJwtExtension
                     new RsaSecurityKey(rsa)
             };
         });
-        services.AddAuthorization();
+        services.AddAuthorization(x=>
+            x.AddPolicy("Admin",x=>x.RequireRole("Admin")));
     } 
 }

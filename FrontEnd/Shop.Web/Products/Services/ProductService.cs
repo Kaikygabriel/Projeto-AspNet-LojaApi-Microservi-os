@@ -19,10 +19,10 @@ public class ProductService : IProductService
         _jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
 
-    public async Task<IEnumerable<ProductViewModel>?> GetAllAsync(string token)
+    public async Task<IEnumerable<ProductViewModel>?> GetAllAsync()
     {
         var Products = new List<ProductViewModel>();
-        var client = CreateHttpClientProduct(token);
+        var client = _clientFactory.CreateClient(ClientProduct);
         using var response = await client.GetAsync(EndPointAPi);
         if (!response.IsSuccessStatusCode)
             return null;
@@ -32,9 +32,10 @@ public class ProductService : IProductService
             (content, _jsonSerializerOptions);
     }
 
-    public async Task<ProductViewModel?> GetById(int id,string token)
+    public async Task<ProductViewModel?> GetById(int id)
     {
-        var client = CreateHttpClientProduct( token);
+        var client = _clientFactory.CreateClient(ClientProduct);
+
         using var response = await client.GetAsync($"{EndPointAPi}/{id}");
         if (!response.IsSuccessStatusCode)
             return null;
