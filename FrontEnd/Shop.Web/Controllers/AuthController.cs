@@ -18,6 +18,8 @@ public class AuthController : Controller
     [HttpGet("Cadastro")]
     public IActionResult Cadastro()
     {
+        if (!ValidateUserConnect())
+            return RedirectToAction("Index", "Home");
         return View();
     }
     [HttpPost("Cadastro")]
@@ -26,16 +28,38 @@ public class AuthController : Controller
         if (!ModelState.IsValid || user is null)
             return View(user);
         
-        var token = await _auth.Cadastro(user);
-        if (token is null)
+        var model = await _auth.Cadastro(user);
+        if (model.Token is null)
             return View("Error");
         
-        InsertInformationTokenInCookie(token);
+        InsertInformationTokenInCookie(model);
         
         return RedirectToAction("Index", "Home");
     }
 
-    private void InsertInformationTokenInCookie(string model)
+    [HttpGet("Login")]
+    public IActionResult Login()
+    {
+        if (!ValidateUserConnect())
+            return RedirectToAction("Index", "Home");
+        return View();
+    }
+
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login(Userlogin user)
+    {
+        if (!ModelState.IsValid || user is null)
+            return View(user);
+        var model = await _auth.Login(user);
+        if (model.Token is null)
+            return View("Error");
+        
+        InsertInformationTokenInCookie(model);
+        
+        return RedirectToAction("Index", "Home");
+    }
+    
+    private void InsertInformationTokenInCookie(UserToken model)
     {
         var cookieOptions = new CookieOptions()
         {
@@ -44,6 +68,16 @@ public class AuthController : Controller
             HttpOnly = true,
             Secure = true
         };
-        Response.Cookies.Append("Token-Auth", model, cookieOptions);
+        Response.Cookies.Append("Token-Auth", model.Token, cookieOptions);
+        Response.Cookies.Append("Email-User", model.Email, cookieOptions);
+    }
+
+    private bool ValidateUserConnect()
+    {
+        var user = Request.Cookies["Email-User"];
+        var token = Request.Cookies["Token-Auth"];
+        if (token is not null || user is not null)
+            return false;
+        return true;
     }
 }

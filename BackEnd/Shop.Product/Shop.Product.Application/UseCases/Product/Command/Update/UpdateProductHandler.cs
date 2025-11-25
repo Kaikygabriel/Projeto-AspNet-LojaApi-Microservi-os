@@ -13,6 +13,9 @@ public class UpdateProductHandler :HandlerBase ,IRequestHandler<UpdateProductCom
     {
         try
         {
+            var userExisting =await UnitOfWork.RepositoryProduct.GetByPredicate(x => x.Name == request.Product.Name);
+            if (userExisting is null)
+                return false;
             UnitOfWork.RepositoryProduct.Update(request.Product);
             await UnitOfWork.CommitAsync();
             return true;

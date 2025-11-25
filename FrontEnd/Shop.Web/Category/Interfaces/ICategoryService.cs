@@ -5,5 +5,5 @@ namespace Shop.Web.Category.Interfaces;
 
 public interface ICategoryService
 {
-    Task<IEnumerable<CategoryViewModel>> GetAllAsync();
+    Task<IEnumerable<CategoryViewModel>> GetAllAsync(string token);
 }

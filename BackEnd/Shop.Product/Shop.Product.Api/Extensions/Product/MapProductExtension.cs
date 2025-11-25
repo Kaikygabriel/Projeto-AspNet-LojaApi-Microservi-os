@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shop.Application.DTOs.Product;
 using Shop.Application.UseCases.Product.Command.Create;
 using Shop.Application.UseCases.Product.Command.Delete;
+using Shop.Application.UseCases.Product.Command.Update;
 using Shop.Application.UseCases.Product.Query.GetAll;
 using Shop.Application.UseCases.Product.Query.GetById;
 
@@ -19,7 +20,7 @@ public static class MapProductExtension
             return products is not null
                 ? Results.Ok(products)
                 : Results.BadRequest("Products not found");
-        }).RequireAuthorization();
+        });
         app.MapGet("/Products/{id:int}", async 
             (int id,IMediator mediator) =>
         {
@@ -28,7 +29,7 @@ public static class MapProductExtension
             return product is not null
                 ? Results.Ok(product)
                 : Results.BadRequest("Product not found");
-        }).RequireAuthorization();
+        });
         app.MapPost("/Products", async
             ([FromBody]ProductDto productDto,IMediator mediator) =>
         {
@@ -37,7 +38,18 @@ public static class MapProductExtension
             return resultCreate 
                 ? Results.Created()
                 : Results.NotFound("Error in create!");
-        }).RequireAuthorization();
+        }).RequireAuthorization("Admin");
+        
+        app.MapPut("/Products/{id}", async
+            (int id,[FromBody]ProductDto productDto,IMediator mediator) =>
+        {
+            if (id != productDto.Id) return Results.NotFound();
+            var command = new UpdateProductCommand((Domain.Entities.Product)productDto);
+            var resultCreate = await mediator.Send(command);
+            return resultCreate 
+                ? Results.Created()
+                : Results.NotFound("Error in create!");
+        }).RequireAuthorization("Admin");
         
         app.MapDelete("/Products/{id:int}", async 
             (int id,IMediator mediator) =>
@@ -51,6 +63,6 @@ public static class MapProductExtension
             return result 
                 ? Results.Ok(product)
                 : Results.NotFound("Error in delete!");
-        }).RequireAuthorization();
+        }).RequireAuthorization("Admin");
     }
 }

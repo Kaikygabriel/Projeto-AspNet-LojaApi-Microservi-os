@@ -17,7 +17,7 @@ public static class MapCategoryExtesion
         {
             var categorys = await mediator.Send(new GetAllCategoryQuery());
             return categorys is not null ? Results.Ok(categorys) : Results.BadRequest();
-        }).RequireAuthorization();
+        });
 
         app.MapGet("Categorys/{name:alpha}", async (
             string name, IMediator mediator) =>
@@ -25,7 +25,7 @@ public static class MapCategoryExtesion
             var category = await mediator.Send(new GetByNameCategoryQuery(name));
             var categoryDto = (CategoryDto)category;
             return Results.Ok(category);
-        }).RequireAuthorization();
+        });
 
         app.MapPost("Categorys", async (
             [FromBody] CategoryDto category, IMediator mediator) =>

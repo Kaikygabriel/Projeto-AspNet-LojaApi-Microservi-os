@@ -60,4 +60,16 @@ public class AuthController  : ControllerBase
         
         return Ok(token);
     }
+    [HttpPost("InfoUser")]
+    public ActionResult GetInfoUser([FromBody]string token)
+    {
+        if(token is null)
+            return BadRequest("");
+        var user  = _serviceAuth.GetUserFromToken(token);
+
+        if (user is null)
+            return BadRequest("");
+        
+        return Ok(user);
+    }
  }
