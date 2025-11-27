@@ -61,11 +61,11 @@ public class AuthController  : ControllerBase
         return Ok(token);
     }
     [HttpPost("InfoUser")]
-    public ActionResult GetInfoUser([FromBody]string token)
+    public async Task<ActionResult> GetInfoUser([FromBody]string token)
     {
         if(token is null)
             return BadRequest("");
-        var user  = _serviceAuth.GetUserFromToken(token);
+        var user  = await _serviceAuth.GetUserFromToken(token);
 
         if (user is null)
             return BadRequest("");
