@@ -2,7 +2,7 @@ using Shop.Cart.Domain.Exception;
 
 namespace Shop.Cart.Domain.ObjectValues;
 
-public class CartHeader 
+public struct CartHeader 
 {
     public CartHeader(){}
     public CartHeader(string userId)

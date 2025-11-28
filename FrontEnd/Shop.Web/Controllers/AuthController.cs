@@ -18,6 +18,28 @@ public class AuthController : Controller
         _cartService = cartService;
     }
 
+     [HttpGet("Index")]
+     public async Task<IActionResult> Index()
+     {
+         if (Request.Cookies["Token-Auth"] is null)
+             return RedirectToAction("Cadastro", "Auth");
+
+         var token =  Request.Cookies["Token-Auth"];
+         var user = await _auth.GetUserOfToken(token);
+         if(user is null)
+             return RedirectToAction("Index", "Home");
+         return View(user);
+     }
+     [HttpPost("Logout")]
+     public async Task<IActionResult> Logout()
+     {
+         if (Request.Cookies["Token-Auth"] is null || Request.Cookies["Email-User" ] is null  || Request.Cookies["Id"]  is null)
+             return RedirectToAction("Cadastro", "Auth");
+        Response.Cookies.Delete("Token-Auth");
+        Response.Cookies.Delete("Id");
+        Response.Cookies.Delete("Email-User");
+        return RedirectToAction("Index", "Home");
+     }
     [HttpGet("Cadastro")]
     public IActionResult Cadastro()
     {
@@ -31,24 +53,23 @@ public class AuthController : Controller
     {
         try
         {
-        if (!ModelState.IsValid || user is null)
-            return View(user);
+            if (!ModelState.IsValid || user is null)
+                return View(user);
 
-        var model = await _auth.Cadastro(user);
-        if (model.Token is null)
-            return View("Error");
-        var userInfo = await _auth.GetUserOfToken(model.Token);
-        model.user = userInfo;
-        var createCart = await _cartService.CreateCart
-            (new Cart.Models.Cart(model.user.Id.ToString()), model.Token);
-        InsertInformationTokenInCookie(model);
+            var model = await _auth.Cadastro(user);
+            if (model.Token is null)
+                return View("Error");
+            var userInfo = await _auth.GetUserOfToken(model.Token);
+            model.user = userInfo;
+            var createCart = await _cartService.CreateCart
+                (new Cart.Models.Cart(model.user.Id.ToString()), model.Token);
+            InsertInformationTokenInCookie(model);
 
-        return RedirectToAction("Index", "Home");
-     }
-     catch(Exception e )
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception e)
         {
             return View("Error");
-
         }
     }
 
@@ -76,13 +97,12 @@ public class AuthController : Controller
             model.user = userInfo;
 
             InsertInformationTokenInCookie(model);
-
+            
             return RedirectToAction("Index", "Home");
         }
         catch(Exception e )
         {
             return View("Error");
-
         }
     }
     

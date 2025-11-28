@@ -47,9 +47,10 @@
                         @if (ViewBag.EmailUser is not null )
                         {
                             <li class="nav-item">
-                                <span class="nav-link text-primary fw-bold">
+                                <a class="nav-link text-dark fw-semibold"
+                                   asp-controller="Auth" asp-action="Index">
                                     <i class="fa-solid fa-user"></i> @ViewBag.EmailUser
-                                </span>
+                                </a>
                             </li>
                             
                             <li class="nav-item">

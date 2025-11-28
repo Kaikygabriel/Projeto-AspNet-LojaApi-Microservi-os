@@ -88,8 +88,8 @@ public class ProductsController : Controller
         if (token is null)
             return false;
         var user =await _authService.GetUserOfToken(token);
-        if (user.Roles.FirstOrDefault(x=>x == "Admin") is null)
-            return false;
-        return true;
+        if (user.Roles.Exists(r => r == "Admin"))
+            return true;
+        return false;
     }
 }

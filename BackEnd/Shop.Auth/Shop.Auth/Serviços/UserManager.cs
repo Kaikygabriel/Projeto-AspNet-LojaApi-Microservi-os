@@ -15,8 +15,8 @@ public class UserManager : IUserManager
 
     public async Task<bool> CreateUser(User user)
     {
-        try
-        {
+       // try
+        //{
             if (await FindUserByEmail(user.Email.Address) is not null || !user.IsValid())
                 return false;
             var password = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
@@ -24,11 +24,11 @@ public class UserManager : IUserManager
             _unitOfWork.RepositoryUser.Create(user);
             await _unitOfWork.CommitAsync();
             return true;
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
+        //}
+        //catch (Exception e)
+        //{
+          //  return false;
+        //}
     }
 
     public async Task<User?> FindUserByName(string name)

@@ -25,7 +25,7 @@ public class User : Entity
     public string Name { get; set; }
     public Email Email { get; set; }
     public string PasswordHash { get; set; }
-    public List<string> Roles { get;private set; } = new();
+    public List<string> Roles { get;set; } = new();
     public bool Google { get; set; }
 
     public void UpdateAddressInEmail(string address)
