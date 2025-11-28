@@ -32,7 +32,7 @@ public class ServiceAuth
 
         var token = await GetAccessTokenOfAuthenticationCode(codeAuthorization);
         
-        var modelReturn = new UserToken { Token = token, Email = userCadastro.Email  };
+        var modelReturn = new UserToken { Token = token};
         return modelReturn;
     }
     public async Task<UserToken> Login(Userlogin user)
@@ -47,7 +47,7 @@ public class ServiceAuth
             var codeAuthorization = JsonSerializer.Deserialize<string>(responseApi,_jsonSerializerOptions);
     
             var token = await GetAccessTokenOfAuthenticationCode(codeAuthorization);
-            var modelReturn = new UserToken { Token = token, Email = user.Email };
+            var modelReturn = new UserToken { Token = token };
             return modelReturn;
         }
 

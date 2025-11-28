@@ -44,12 +44,19 @@
                             <a class="nav-link fw-semibold" asp-controller="Products" asp-action="Index">Products</a>
                         </li>
 
-                        @if (ViewBag.EmailUser is not null)
+                        @if (ViewBag.EmailUser is not null )
                         {
                             <li class="nav-item">
                                 <span class="nav-link text-primary fw-bold">
                                     <i class="fa-solid fa-user"></i> @ViewBag.EmailUser
                                 </span>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link text-dark fw-semibold"
+                                   asp-controller="Cart" asp-action="Index">
+                                    <i class="fa-solid "></i> 🛒Ver Carrinho
+                                </a>
                             </li>
                         }
                         else
@@ -61,7 +68,7 @@
                                 </a>
                             </li>
                         }
-
+                       
                     </ul>
                 </div>
 

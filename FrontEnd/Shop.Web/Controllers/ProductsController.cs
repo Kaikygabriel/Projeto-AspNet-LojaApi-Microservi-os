@@ -29,6 +29,7 @@ public class ProductsController : Controller
         var token = GetTokenOfCookie();
         var userAdmin = await IsUserAdmin(token);
         ViewBag.UserAdmin = userAdmin;
+        ViewBag.EmailUser = Request.Cookies["Email-User"];
         var products = await _productService.GetAllAsync();
         if(products is null) return View("Error");
         return View(products);

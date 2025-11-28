@@ -15,6 +15,7 @@
 <body>
 
 <div class="container">
+
     <div class="product-container row align-items-center g-4 mt-4">
 
         <!-- Imagem -->
@@ -36,26 +37,39 @@
                 <strong>Estoque:</strong> @Model.Stock unidades
             </p>
 
-            <div class="mt-4 d-flex flex-column flex-md-row gap-3">
-                <button class="btn btn-primary btn-buy w-100 w-md-50">
-                    Adicionar ao Carrinho
-                </button>
+            <!-- FORM PARA ADICIONAR AO CARRINHO -->
+            <form asp-controller="Cart"
+                  asp-action="AddItemInCart"
+                  method="post">
 
-                <a asp-controller="Products"
-                   asp-action="Index"
-                   class="btn btn-outline-secondary btn-buy w-100 w-md-50">
-                    Voltar
-                </a>
-            </div>
+                <!-- Hidden inputs para enviar todo ProductViewModel -->
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Name" />
+                <input type="hidden" asp-for="Price" />
+                <input type="hidden" asp-for="Stock" />
+                <input type="hidden" asp-for="Description" />
+                <input type="hidden" asp-for="ImageUrl" />
+                <input type="hidden" asp-for="IdCategory" />
+
+                <div class="mt-4 d-flex flex-column flex-md-row gap-3">
+
+                    <button type="submit"
+                            class="btn btn-primary btn-buy w-100 w-md-50">
+                        Adicionar ao Carrinho
+                    </button>
+
+                    <a asp-controller="Products"
+                       asp-action="Index"
+                       class="btn btn-outline-secondary w-100 w-md-50">
+                        Voltar
+                    </a>
+                </div>
+            </form>
+
         </div>
 
     </div>
 
-    <div class="mt-4">
-        <a asp-action="Index" asp-controller="Products" class="btn btn-secondary">
-            Cancelar
-        </a>
-    </div>
 </div>
 
 </body>

@@ -1,3 +1,4 @@
+using Shop.Web.Cart.Services;
 using Shop.Web.Category.Interfaces;
 using Shop.Web.Category.Services;
 using Shop.Web.Products.Interfaces;
@@ -17,9 +18,16 @@ builder.Services.AddHttpClient("AuthApi",x =>
     x.BaseAddress = new Uri(builder.Configuration["AuthApi:UriBase"]!);
     x.DefaultRequestHeaders.Accept.ParseAdd("application/json");
 });
+builder.Services.AddHttpClient("CartApi",x =>
+{
+    x.BaseAddress = new Uri(builder.Configuration["CartApi:UriBase"]!);
+    x.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+});
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<ServiceAuth>();
+builder.Services.AddScoped<CartService>();
+
 
 var app = builder.Build();
 

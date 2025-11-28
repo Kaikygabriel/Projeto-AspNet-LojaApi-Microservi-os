@@ -7,5 +7,5 @@ public interface IAuthenticationTokenService
 {
     string GenerateAuthenticationToken(string email);
     Task<string> GenerateAccessToken(string authenticationCode);
-    UserInfo GetUserFromToken(string token);
+    Task<UserInfo> GetUserFromToken(string token);
 }

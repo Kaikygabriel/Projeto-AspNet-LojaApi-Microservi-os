@@ -46,7 +46,7 @@ public class AuthenticationTokenService : IAuthenticationTokenService
         return _tokenService.GerenateAcessToken(_tokenService.GetClaimsOfUser(user),_configuration);
     }
 
-    public UserInfo GetUserFromToken(string token)
+    public async Task<UserInfo> GetUserFromToken(string token)
     {
         var claimsPrincipal = _tokenService.GenerateClaimsPrincipalOfToken(token, _configuration);
 
@@ -59,11 +59,15 @@ public class AuthenticationTokenService : IAuthenticationTokenService
             .Select(c => c.Value)
             .ToList();
 
+        
+        var userBanco = await _userManager.FindUserByEmail(email);
         var user = new UserInfo
         {
+            Id = userBanco.Id,
             Name = name,
             Email = email,
         };
+        
         foreach (var role in roles)
             user.Roles.Add(role);
         return user;
