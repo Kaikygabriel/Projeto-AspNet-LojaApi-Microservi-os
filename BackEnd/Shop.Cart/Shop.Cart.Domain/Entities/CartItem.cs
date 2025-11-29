@@ -33,6 +33,6 @@ public class CartItem : Entity
     public void ValidateUserId(string userId)
     {
         if (string.IsNullOrWhiteSpace(userId)|| userId.Length < 5)
-            throw new CartException("The user id is invalid ");
+            throw new CartItemException("The user id is invalid ");
     }
 }

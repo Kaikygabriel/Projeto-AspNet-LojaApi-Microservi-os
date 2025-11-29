@@ -41,6 +41,17 @@ public class CartService
         return true;
     }
 
+    public async Task<bool> DeleteItem(CartItem item, string idUser,string token)
+    {
+        var client = CreateHttpClientCart(token);
+        var jsonCartItem = JsonSerializer.Serialize(item);
+        var requestBody = new StringContent(jsonCartItem,Encoding.UTF8,"application/json");
+        using var response = await client.DeleteAsync($"{EndPointAPi}/AddItemInCart?id={idUser}", requestBody);
+        if (!response.IsSuccessStatusCode)
+            return false;
+        
+        return true;
+    }
     public async Task<Models.Cart> GetCartByIdOrNull(int Id, string token)
     {
         var client = CreateHttpClientCart(token);
