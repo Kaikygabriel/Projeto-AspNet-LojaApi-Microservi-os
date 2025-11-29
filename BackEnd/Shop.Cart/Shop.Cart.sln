@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Cart.Domain", "Shop.Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Cart.Infra", "Shop.Cart.Infra\Shop.Cart.Infra.csproj", "{13D187E8-6B25-472E-9B81-1C82CD8F8179}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Cart.TEst", "Shop.Cart.TEst\Shop.Cart.TEst.csproj", "{0A8D397F-083E-4D17-960E-A9B48157309E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{13D187E8-6B25-472E-9B81-1C82CD8F8179}.Release|x64.Build.0 = Release|Any CPU
 		{13D187E8-6B25-472E-9B81-1C82CD8F8179}.Release|x86.ActiveCfg = Release|Any CPU
 		{13D187E8-6B25-472E-9B81-1C82CD8F8179}.Release|x86.Build.0 = Release|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Debug|x64.Build.0 = Debug|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Debug|x86.Build.0 = Debug|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Release|x64.ActiveCfg = Release|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Release|x64.Build.0 = Release|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Release|x86.ActiveCfg = Release|Any CPU
+		{0A8D397F-083E-4D17-960E-A9B48157309E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

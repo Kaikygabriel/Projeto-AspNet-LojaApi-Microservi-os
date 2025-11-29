@@ -19,9 +19,6 @@ public class AddItemInCartHandler:HandlerBase,IHandler<AddItemInCartCommand,bool
             var product = await _unitOfWork.RepositoryProduct.GetByPredicate(x => x.Id == request.CartItem.ProductId);
             if (product is null) _unitOfWork.RepositoryProduct.Create(request.CartItem.Product);
 
-            if (cart.UserId != request.CartItem.UserId)
-                return false;
-
             cart.AddItemsInCart(request.CartItem);
 
             _unitOfWork.RepositoryCartItem.Create(request.CartItem);
@@ -36,3 +33,6 @@ public class AddItemInCartHandler:HandlerBase,IHandler<AddItemInCartCommand,bool
         }
     }
 }
+//testess
+//cartitme null e não null
+//cart null e não null
