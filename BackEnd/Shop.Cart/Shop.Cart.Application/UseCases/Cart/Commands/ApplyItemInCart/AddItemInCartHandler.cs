@@ -33,6 +33,3 @@ public class AddItemInCartHandler:HandlerBase,IHandler<AddItemInCartCommand,bool
         }
     }
 }
-//testess
-//cartitme null e não null
-//cart null e não null

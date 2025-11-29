@@ -44,13 +44,13 @@ public static class MockITems
         quantity: 2,
         product: MouseErgonomico,
         userId: MOCK_USER_ID
-    ) { CartId = 1 };
+    ) { CartId = 2 };
     
     public static CartItem TecladoItem { get; } = new CartItem(
         quantity: 3,
         product: TecladoMecanico,
         userId: MOCK_USER_ID
-    ) { CartId = 1 };
+    ) { CartId = 3 };
 
     public static Cart CartMock { get; } = new ()
     {
