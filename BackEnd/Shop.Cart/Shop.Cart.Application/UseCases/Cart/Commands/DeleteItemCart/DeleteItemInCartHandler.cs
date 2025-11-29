@@ -14,7 +14,7 @@ public class DeleteItemInCartHandler : HandlerBase,IHandler<DeleteItemInCartComm
         try
         {
             var cartItem = await _unitOfWork.RepositoryCartItem.GetByPredicate(x => x.Id == request.IdCartItem);
-            if (!cartItem.UserId.Equals(request.UserId))
+            if (cartItem.UserId != request.UserId)
                 return false;
             
             _unitOfWork.RepositoryCartItem.Delete(cartItem);
