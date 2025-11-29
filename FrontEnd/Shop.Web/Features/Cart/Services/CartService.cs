@@ -40,13 +40,12 @@ public class CartService
         
         return true;
     }
-
-    public async Task<bool> DeleteItem(CartItem item, string idUser,string token)
+    public async Task<bool> RemoveItem(int idCartItem, string userId,string token)
     {
         var client = CreateHttpClientCart(token);
-        var jsonCartItem = JsonSerializer.Serialize(item);
+        var jsonCartItem = JsonSerializer.Serialize(new{idCartItem,userId});
         var requestBody = new StringContent(jsonCartItem,Encoding.UTF8,"application/json");
-        using var response = await client.DeleteAsync($"{EndPointAPi}/AddItemInCart?id={idUser}", requestBody);
+        using var response = await client.PostAsync($"{EndPointAPi}/DeleteItemInCart", requestBody);
         if (!response.IsSuccessStatusCode)
             return false;
         

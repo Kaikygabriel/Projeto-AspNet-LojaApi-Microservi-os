@@ -53,7 +53,7 @@ public class CartController  : ControllerBase
         return result ? Created() : NotFound();
     }
 
-    [HttpDelete("DeleteItemInCart")]
+    [HttpPost("DeleteItemInCart")]
     public async Task<ActionResult> DeleteItemInCart([FromBody]DeleteCartItemDto deleteDto)
     {
         var result = await _mediator.SendAsync(new DeleteItemInCartCommand(deleteDto.IdCartItem,deleteDto.UserId));

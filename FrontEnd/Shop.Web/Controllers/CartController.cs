@@ -5,6 +5,7 @@ using Shop.Web.Products.Models;
 
 namespace Shop.Web.Controllers;
 
+[Route("[controller]")]
 public class CartController : Controller
 {
     private readonly CartService _cartService;
@@ -39,6 +40,16 @@ public class CartController : Controller
             Quantity = 1
         };
         var result = await _cartService.AddItem(cartItem, userId, token);
+        return result ? RedirectToAction("Index", "Cart"): View("Error");
+    }
+    [HttpPost("DeleteItem")]
+    public async Task<IActionResult> DeleteItemInCart([FromQuery]int id)
+    {
+        var token = GetTokenOfCookie();
+        var userId = GetUserIdOfCookie();
+        if (!VerifyAuthentication())
+            return RedirectToAction("Cadastro","Auth");
+        var result = await _cartService.RemoveItem(id, userId, token);
         return result ? RedirectToAction("Index", "Products"): View("Error");
     }
         

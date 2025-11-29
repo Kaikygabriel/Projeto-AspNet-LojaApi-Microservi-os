@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shop.Auth\Shop.Authh.csproj" />
+    <ProjectReference Include="..\Shop.Auth\Shop.Auth.csproj" />
   </ItemGroup>
 
 </Project>
