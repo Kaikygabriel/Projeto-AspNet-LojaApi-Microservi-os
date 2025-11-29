@@ -5,6 +5,10 @@ namespace Shop.Cart.Domain.Entities;
 
 public class Product : Entity
 {
+    public Product()
+    {
+        
+    }
     public Product(string name, decimal price, int stock, string description, string? imageUrl)
     {
         Validate(name, price, imageUrl, description);

@@ -16,7 +16,7 @@ public class AddItemInCartHandler:HandlerBase,IHandler<AddItemInCartCommand,bool
             var cart = await _unitOfWork.RepositoryCart.GetByPredicate(x => x.UserId == request.UserId);
             if (cart is null) return false;
             
-            var product = await _unitOfWork.RepositoryProduct.GetByPredicate(x => x.Id == request.CartItem.ProductId);
+            var product = await _unitOfWork.RepositoryProduct.GetByPredicate(x => x.Name == request.CartItem.Product.Name);
             if (product is null) _unitOfWork.RepositoryProduct.Create(request.CartItem.Product);
 
             cart.AddItemsInCart(request.CartItem);

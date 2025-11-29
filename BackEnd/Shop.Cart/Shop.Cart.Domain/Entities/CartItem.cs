@@ -26,7 +26,7 @@ public class CartItem : Entity
     public int CartId { get; set; }
     public void ValidateQuantity(int quantity)
     {
-        if(quantity < 0)
+        if(quantity <= 0)
             throw new CartItemException("The quantity is less than one.");
     }
 

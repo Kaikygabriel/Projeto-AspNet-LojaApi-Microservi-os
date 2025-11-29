@@ -29,8 +29,10 @@ public class Cart : Entity
     
     public void ValidateUserId(string userId)
     {
-        if (string.IsNullOrWhiteSpace(userId)|| userId.Length < 5)
+        if (string.IsNullOrWhiteSpace(userId))
             throw new CartException("The user id is invalid ");
+        if ( userId.Length < 3)
+            throw new CartException("teste ");
     }
         
 }
