@@ -38,19 +38,31 @@ public static class MockITems
         quantity: 3,
         product: NotebookGamer,
         userId: MOCK_USER_ID
-    ) { CartId =  1};
+    )
+    {
+        CartId =  1,
+        Id = 1
+    };
     
     public static CartItem MouseItem { get; } = new CartItem(
         quantity: 2,
         product: MouseErgonomico,
-        userId: MOCK_USER_ID
-    ) { CartId = 2 };
+        userId: "user_12345"
+    )
+    {
+        CartId = 1,
+        Id = 2
+    };
     
     public static CartItem TecladoItem { get; } = new CartItem(
         quantity: 3,
         product: TecladoMecanico,
         userId: MOCK_USER_ID
-    ) { CartId = 3 };
+    )
+    {
+        CartId = 1 ,
+        Id = 3
+    };
 
     public static Cart CartMock { get; } = new ()
     {

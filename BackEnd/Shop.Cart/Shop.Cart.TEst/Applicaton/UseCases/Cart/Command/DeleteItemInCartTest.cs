@@ -7,7 +7,7 @@ public class DeleteItemInCartTest
 {
     private readonly DeleteItemInCartHandler _handler= new (new FakeUnitOfWork());
 
-    private const int ID_CARTITEM_VALID = 1;
+    private const int ID_CARTITEM_VALID = 2;
     private const int ID_CARTITEM_INVALID = 13232;
 
     private const string ID_USER_VALID = "user_12345";
@@ -51,7 +51,7 @@ public class DeleteItemInCartTest
     public async Task DeleteItem_IdUserValid_Return_True()
     {
         //arrange
-        var command = new DeleteItemInCartCommand(ID_CARTITEM_VALID, ID_USER_VALID);
+        var command = new DeleteItemInCartCommand(2, ID_USER_VALID);
         //act
         var result = await _handler.HandleAsync(command);
         //assert
