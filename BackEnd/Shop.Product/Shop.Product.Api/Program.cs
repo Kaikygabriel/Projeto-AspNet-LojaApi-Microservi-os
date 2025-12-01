@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionSql = builder.Configuration.GetConnectionString("DefaultConnection");
 
+builder.Services.AddMemoryCache(x =>
+    x.SizeLimit = 20);
 builder.Services.AddDependencyInjection();
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
@@ -16,8 +18,6 @@ builder.Services.AddDbContext<AppDbContext>(x =>
     x.UseSqlServer(connectionSql));
 
 var app = builder.Build();
-
-
 
 app.UseHttpsRedirection();
 
