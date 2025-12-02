@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Caching.Memory;
 using Shop.Application.UseCases.Product.Command.Create;
 using Shop.Application.UseCases.Product.Command.Delete;
 using Shop.Product.Test.Mocks;
@@ -7,7 +8,7 @@ namespace Shop.Product.Test.Applicaton.UseCases.Product.Command.Delete;
 public class DeleteProductTest
 {
 
-    private readonly DeleteProductHandler Handler = new(new FakeUnitOfWork());
+    private readonly DeleteProductHandler Handler = new(new FakeUnitOfWork(),new MemoryCache(new MemoryCacheOptions()));
     private readonly Shop.Domain.Entities.Product? ProductNull = null;
     private readonly Shop.Domain.Entities.Product ProductValid = new
     (name: "Teclado Mecânico Redragon Kumara",

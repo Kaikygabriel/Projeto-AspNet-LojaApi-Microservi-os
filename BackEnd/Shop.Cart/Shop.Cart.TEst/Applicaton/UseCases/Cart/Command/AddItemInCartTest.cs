@@ -2,7 +2,7 @@ using Shop.Cart.Application.UseCases.Cart.Commands.ApplyItemInCart;
 using Shop.Cart.Domain.Entities;
 using Shop.Cart.TEst.Mocks;
 
-namespace Shop.Cart.TEst.Applicaton.UseCases.Cart;
+namespace Shop.Cart.TEst.Applicaton.UseCases.Cart.Command;
 
 public class AddItemInCartTest
 {

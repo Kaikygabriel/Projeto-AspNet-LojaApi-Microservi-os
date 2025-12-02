@@ -7,11 +7,12 @@ namespace Shop.Cart.TEst.Mocks;
 public class FakeRepositoryCartItem : ICartItemRepository
 {
 
-    public FakeRepositoryCartItem()
+    private List<CartItem> CartItems = new ()
     {
-        CartItems.AddRange(MockITems.MouseItem,MockITems.NotebookItem,MockITems.TecladoItem);
-    }
-    private List<CartItem> CartItems = new ();
+        MockITems.MouseItem,
+        MockITems.NotebookItem,
+        MockITems.TecladoItem
+    };
     public async Task<IEnumerable<CartItem>> GetAll()
     {
         await Task.Delay(0);
