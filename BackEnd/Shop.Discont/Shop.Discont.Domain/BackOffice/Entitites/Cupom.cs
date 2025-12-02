@@ -10,7 +10,7 @@ public class Cupom : Entity
     {
         
     }
-    public Cupom(string name, ushort descont)
+    public Cupom(string name, int descont)
     {
         if (!IsValid(name, descont))
             throw new CupomException();
@@ -19,9 +19,9 @@ public class Cupom : Entity
     }
 
     public string Name { get;private set; }
-    public ushort Descont { get;private set; }
+    public int Descont { get;private set; }
 
-    public bool IsValid(string name, ushort descont)
+    public bool IsValid(string name, int descont)
     {
         if (string.IsNullOrWhiteSpace(name) || name.Length < 2)
             return false;

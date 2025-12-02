@@ -13,6 +13,9 @@ public class CreateHandler : HandlerBase,IRequestHandler<CreateCommand,bool>
     {
         try
         {
+            if (await _repository.GetByPredicate(x => x.Name == request.Cupom.Name) is not null ||
+                request.Cupom is null)
+                return false;
             await _repository.Create(request.Cupom);
             return true;
         }
