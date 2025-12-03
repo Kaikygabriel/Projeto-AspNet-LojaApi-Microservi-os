@@ -10,8 +10,7 @@ public class FakeCupomRepository : IRepositoryCupom
 
     public FakeCupomRepository()
     {
-        // Dados iniciais de mock
-        _cupons.Add(new Cupom("Desconto10", 10));
+        _cupons.Add(new Cupom("Desconto10", 10){Id = 1});
         _cupons.Add(new Cupom("Promo20", 20));
         _cupons.Add(new Cupom("Cupom5", 5));
     }

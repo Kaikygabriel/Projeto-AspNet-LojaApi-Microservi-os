@@ -6,10 +6,11 @@ public static class MapCupomExtensions
 {
     public static WebApplication MapCupom(this WebApplication app)
     {
-        var group = app.MapGroup("Cupom/");
+        var group = app.MapGroup("Cupom/").RequireAuthorization();
 
         MapPostCupom.Map(group);
         MapGetAllCupom.Map(group);
+        MapDeleteCupom.Map(group);
         
         return app;
     }

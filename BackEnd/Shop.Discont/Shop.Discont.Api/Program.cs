@@ -7,6 +7,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDependencyInjection();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthenticationFromMicrosservices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -19,4 +20,9 @@ if (app.Environment.IsDevelopment())
 
 app.MapCupom();
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.Run();
